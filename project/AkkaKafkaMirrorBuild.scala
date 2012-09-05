@@ -19,6 +19,9 @@ object AkkaKafkaMirrorBuild extends Build {
       ),
       libraryDependencies ++= Seq(
         "com.typesafe.akka" % "akka-actor" % "2.0.1",
+        "org.slf4j" % "slf4j-api" % "1.6.4",
+        "ch.qos.logback" % "logback-classic" % "1.0.6",
+        "commons-logging" % "commons-logging" % "1.1.1",
         "kafka" % "core-kafka-assembly" % "0.7.1"
       )
     )

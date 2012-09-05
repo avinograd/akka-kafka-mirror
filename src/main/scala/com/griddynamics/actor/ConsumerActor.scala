@@ -3,7 +3,7 @@ package com.griddynamics.actor
 import akka.actor.{ActorRef, Actor}
 import kafka.consumer.KafkaStream
 import kafka.message.Message
-import com.griddynamics.ConsumeNext
+import com.griddynamics.{ProduceMessage, ConsumeNext}
 
 /**
  * @author avinogradov
@@ -16,7 +16,7 @@ class ConsumerActor(val stream: KafkaStream[Message],
   protected def receive = {
     case ConsumeNext => {
       if (streamIterator.hasNext()) {
-        producerRouter ! streamIterator.next()
+        producerRouter ! ProduceMessage(streamIterator.next())
       }
       self ! ConsumeNext
     }
