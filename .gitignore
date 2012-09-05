@@ -1,0 +1,10 @@
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+*.ids
+target/
+project/target/
+project/project/
+
