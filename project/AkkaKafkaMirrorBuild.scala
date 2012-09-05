@@ -22,6 +22,7 @@ object AkkaKafkaMirrorBuild extends Build {
         "org.slf4j" % "slf4j-api" % "1.6.4",
         "ch.qos.logback" % "logback-classic" % "1.0.6",
         "commons-logging" % "commons-logging" % "1.1.1",
+        "joda-time" % "joda-time" % "1.6",
         "kafka" % "core-kafka-assembly" % "0.7.1"
       )
     )

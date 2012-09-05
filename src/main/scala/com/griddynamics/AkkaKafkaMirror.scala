@@ -1,6 +1,6 @@
 package com.griddynamics
 
-import actor.{ConsumerActor, ProducerActor}
+import actor.{Monitor, ConsumerActor, ProducerActor}
 import akka.actor._
 import kafka.message.{MessageAndMetadata, Message}
 import kafka.utils.Utils
@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory
 sealed trait MirrorMessage
 case object ConsumeNext extends MirrorMessage
 case class ProduceMessage(message: MessageAndMetadata[Message]) extends MirrorMessage
+case class Produced(size: Int) extends MirrorMessage
+case object CheckProducing extends MirrorMessage
 
 object AkkaKafkaMirror extends App {
 
@@ -21,12 +23,14 @@ object AkkaKafkaMirror extends App {
   log.info("Actor system was started")
 
   // read properties
-  val numberOfConsumerStreams = 1
+  val numberOfConsumerStreams = 4
   val numberOfProducers = 100
 
+  // create monitoring actor
+  val monitor = system.actorOf(Props[Monitor])
   // create producers pool
   val kafkaProducerConfig = new ProducerConfig(Utils.loadProps("producer.properties"))
-  val producerRouter = system.actorOf(Props(new ProducerActor(kafkaProducerConfig)).withRouter(RoundRobinRouter(numberOfProducers)))
+  val producerRouter = system.actorOf(Props(new ProducerActor(kafkaProducerConfig, monitor)).withRouter(RoundRobinRouter(numberOfProducers)))
   log.info("Producer router was created")
   // create kafka consumer with some number of streams
   val kafkaConsumerConfig = new ConsumerConfig(Utils.loadProps("consumer.properties"))
