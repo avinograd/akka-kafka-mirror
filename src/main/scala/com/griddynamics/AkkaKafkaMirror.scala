@@ -14,6 +14,8 @@ case object ConsumeNext extends MirrorMessage
 case class ProduceMessage(message: MessageAndMetadata[Message]) extends MirrorMessage
 case class Produced(size: Int) extends MirrorMessage
 case object CheckProducing extends MirrorMessage
+case class Consumed(size: Int) extends MirrorMessage
+case object CheckConsuming extends MirrorMessage
 
 object AkkaKafkaMirror extends App {
 
@@ -23,8 +25,8 @@ object AkkaKafkaMirror extends App {
   log.info("Actor system was started")
 
   // read properties
-  val numberOfConsumerStreams = 4
-  val numberOfProducers = 100
+  val numberOfConsumerStreams = 8
+  val numberOfProducers = 16
 
   // create monitoring actor
   val monitor = system.actorOf(Props[Monitor])
@@ -38,7 +40,7 @@ object AkkaKafkaMirror extends App {
   log.info("Kafka consumer was created")
   // create consumer actor for each of streams
   val consumerPool = kafkaConsumer.createMessageStreamsByFilter(Whitelist(".*"), numberOfConsumerStreams).map(
-    stream => system.actorOf(Props(new ConsumerActor(stream, producerRouter)))
+    stream => system.actorOf(Props(new ConsumerActor(stream, producerRouter, monitor)))
   )
   log.info("Consumer pool was created")
   // start consuming
