@@ -1,4 +1,4 @@
-package com.griddynamics
+package com.griddynamics.kafka.mirror
 
 import actor.{Monitor, ConsumerActor, ProducerActor}
 import akka.actor._

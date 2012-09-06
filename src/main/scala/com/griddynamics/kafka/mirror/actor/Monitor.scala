@@ -1,7 +1,7 @@
-package com.griddynamics.actor
+package com.griddynamics.kafka.mirror.actor
 
 import akka.actor.Actor
-import com.griddynamics.{CheckConsuming, Consumed, CheckProducing, Produced}
+import com.griddynamics.kafka.mirror.{CheckConsuming, Consumed, CheckProducing, Produced}
 import org.joda.time.{Period, DateTime}
 import akka.event.Logging
 import akka.util.duration._

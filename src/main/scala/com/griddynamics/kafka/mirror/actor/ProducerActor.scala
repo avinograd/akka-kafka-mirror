@@ -1,7 +1,7 @@
-package com.griddynamics.actor
+package com.griddynamics.kafka.mirror.actor
 
 import akka.actor.{ActorRef, Actor}
-import com.griddynamics.{Produced, ProduceMessage}
+import com.griddynamics.kafka.mirror.{Produced, ProduceMessage}
 import kafka.producer._
 import kafka.message.Message
 import akka.event.Logging

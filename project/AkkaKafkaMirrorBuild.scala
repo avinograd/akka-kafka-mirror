@@ -10,7 +10,7 @@ object AkkaKafkaMirrorBuild extends Build {
     base = file("."),
     settings = assemblySettings ++ Project.defaultSettings ++ Seq(
       name := "akka-kafka-mirror",
-      organization := "com.griddynamics",
+      organization := "com.griddynamics.kafka",
       version := "0.1-SNAPSHOT",
       scalaVersion := "2.9.2",
       resolvers ++= Seq(

@@ -1,9 +1,9 @@
-package com.griddynamics.actor
+package com.griddynamics.kafka.mirror.actor
 
 import akka.actor.{ActorRef, Actor}
 import kafka.consumer.KafkaStream
 import kafka.message.{MessageAndMetadata, Message}
-import com.griddynamics.{Consumed, ProduceMessage, ConsumeNext}
+import com.griddynamics.kafka.mirror.{Consumed, ProduceMessage, ConsumeNext}
 
 /**
  * @author avinogradov
